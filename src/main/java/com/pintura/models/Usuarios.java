@@ -21,7 +21,7 @@ public class Usuarios {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id_usuario;
+	private int id_usuario;
 	
 	@Column(nullable = false)
 	private String usuario;
@@ -49,7 +49,7 @@ public class Usuarios {
 		return id_usuario;
 	}
 
-	public void setId_usuario(long id_usuario) {
+	public void setId_usuario(int id_usuario) {
 		this.id_usuario = id_usuario;
 	}
 

@@ -14,7 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 /**
- * @author pachi
+ * @author Juan Paggi
  * Modelo de la tabla noticias.
  */
 
@@ -23,7 +23,7 @@ public class Noticias {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id_noticia;
+	private int id_noticia;
 	
 	@Column(nullable = false)
 	private String titulo;
@@ -46,16 +46,40 @@ public class Noticias {
     inverseJoinColumns = 
     @JoinColumn(name = "id_tag", referencedColumnName = "id_tag"))
 	private List<Tags> tags;
+	
+	@ManyToMany(fetch = FetchType.LAZY) 
+    @JoinTable(name = "noticas_imagenes", 
+    joinColumns = 
+    @JoinColumn(name = "id_noticia", referencedColumnName = "id_noticia"), 
+    inverseJoinColumns = 
+    @JoinColumn(name = "id_imagen", referencedColumnName = "id_imagen"))
+	private List<Imagenes> imagenes;
 
 	/*
 	 * ------ Getter and Setter ------ 
 	 */
 	
+	public List<Tags> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tags> tags) {
+		this.tags = tags;
+	}
+
+	public List<Imagenes> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<Imagenes> imagenes) {
+		this.imagenes = imagenes;
+	}
+
 	public long getId_noticia() {
 		return id_noticia;
 	}
 
-	public void setId_noticia(long id_noticia) {
+	public void setId_noticia(int id_noticia) {
 		this.id_noticia = id_noticia;
 	}
 
