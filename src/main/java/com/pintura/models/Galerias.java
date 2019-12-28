@@ -1,7 +1,7 @@
 package com.pintura.models;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,6 +27,9 @@ public class Galerias {
 	private int id_galeria;
 	
 	@Column(nullable = false)
+	private String titulo;
+
+	@Column(nullable = false)
 	private Date fecha;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -39,20 +42,28 @@ public class Galerias {
     @JoinColumn(name = "id_galeria", referencedColumnName = "id_galeria"), 
     inverseJoinColumns = 
     @JoinColumn(name = "id_imagen", referencedColumnName = "id_imagen"))
-	private List<Imagenes> imagenes;
+	private Set<Imagenes> imagenes;
 
 	/*
 	 * ------ Getter and Setter ------ 
 	 */
 	
-	public List<Imagenes> getImagenes() {
+	public Set<Imagenes> getImagenes() {
 		return imagenes;
 	}
 
-	public void setImagenes(List<Imagenes> imagenes) {
-		this.imagenes = imagenes;
+	public void setImagenes(Set<Imagenes> imagenes2) {
+		this.imagenes = imagenes2;
 	}
 
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+	
 	public int getId_galeria() {
 		return id_galeria;
 	}

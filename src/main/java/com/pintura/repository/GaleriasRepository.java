@@ -11,6 +11,6 @@ import com.pintura.models.Galerias;
  */
 
 @Repository
-public interface GaleriasRepository extends JpaRepository <Galerias , Long> {
+public interface GaleriasRepository extends JpaRepository <Galerias , Integer> {
 
 }
