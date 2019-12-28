@@ -14,7 +14,7 @@ import com.pintura.models.Usuarios;
  */
 
 @Repository
-public interface UsuariosRepository extends JpaRepository <Usuarios , Long> {
+public interface UsuariosRepository extends JpaRepository <Usuarios , Integer> {
 	
 	// Consulta para traer un usuario por su user y clave
 	@Query(value="select * from usuarios where usuario = ?1 and clave = ?2",nativeQuery=true)

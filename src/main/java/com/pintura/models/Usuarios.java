@@ -45,7 +45,7 @@ public class Usuarios {
 	 * ------ Getter and Setter ------ 
 	 */
 	
-	public long getId_usuario() {
+	public int getId_usuario() {
 		return id_usuario;
 	}
 
