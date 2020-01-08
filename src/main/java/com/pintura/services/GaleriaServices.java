@@ -168,10 +168,6 @@ public class GaleriaServices {
 				imagenes.add(fileService.uploadImageFile(imagen, usuario.get()));
 			}
 
-			for (Imagenes imagen : galeria.get().getImagenes()) {
-				fileService.removeImage(imagen.getId_imagen());
-			}
-
 			galeriaObj.setImagenes(imagenes);
 
 			galeriasRepository.save(galeriaObj);

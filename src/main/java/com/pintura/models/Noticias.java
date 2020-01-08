@@ -1,6 +1,7 @@
 package com.pintura.models;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,8 +37,8 @@ public class Noticias {
 	private Usuarios id_usuario;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="imagen_relevante", referencedColumnName = "id_usuario")
-	private Usuarios imagen_relevante;
+	@JoinColumn(name="imagen_relevante", referencedColumnName = "id_imagen")
+	private Imagenes imagen_relevante;
 	
 	@ManyToMany(fetch = FetchType.LAZY) 
     @JoinTable(name = "noticas_tags", 
@@ -48,12 +49,12 @@ public class Noticias {
 	private List<Tags> tags;
 	
 	@ManyToMany(fetch = FetchType.LAZY) 
-    @JoinTable(name = "noticas_imagenes", 
+    @JoinTable(name = "noticias_imagenes", 
     joinColumns = 
     @JoinColumn(name = "id_noticia", referencedColumnName = "id_noticia"), 
     inverseJoinColumns = 
     @JoinColumn(name = "id_imagen", referencedColumnName = "id_imagen"))
-	private List<Imagenes> imagenes;
+	private Set<Imagenes> imagenes;
 
 	/*
 	 * ------ Getter and Setter ------ 
@@ -67,15 +68,15 @@ public class Noticias {
 		this.tags = tags;
 	}
 
-	public List<Imagenes> getImagenes() {
+	public Set<Imagenes> getImagenes() {
 		return imagenes;
 	}
 
-	public void setImagenes(List<Imagenes> imagenes) {
+	public void setImagenes(Set<Imagenes> imagenes) {
 		this.imagenes = imagenes;
 	}
 
-	public long getId_noticia() {
+	public int getId_noticia() {
 		return id_noticia;
 	}
 
@@ -107,11 +108,11 @@ public class Noticias {
 		this.id_usuario = id_usuario;
 	}
 
-	public Usuarios getImagen_relevante() {
+	public Imagenes getImagen_relevante() {
 		return imagen_relevante;
 	}
 
-	public void setImagen_relevante(Usuarios imagen_relevante) {
+	public void setImagen_relevante(Imagenes imagen_relevante) {
 		this.imagen_relevante = imagen_relevante;
 	}
 	

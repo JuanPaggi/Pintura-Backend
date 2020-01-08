@@ -11,6 +11,6 @@ import com.pintura.models.Noticias;
  */
 
 @Repository
-public interface NoticiasRepository extends JpaRepository <Noticias , Long> {
+public interface NoticiasRepository extends JpaRepository <Noticias , Integer> {
 
 }

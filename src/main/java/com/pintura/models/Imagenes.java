@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.pintura.utils.Sha1Hasher;
 
@@ -42,6 +43,10 @@ public class Imagenes {
 	@JoinColumn(name="id_usuario_subido", referencedColumnName = "id_usuario")
 	private Usuarios id_usuario_subido;
 	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name="imagen_relevante", referencedColumnName = "id_imagen", nullable = false, insertable = false, updatable = false)
+	private List<Noticias> noticias_imagen_relevante;
+	
 	@ManyToMany(fetch = FetchType.LAZY) 
     @JoinTable(name = "noticias_imagenes", 
     joinColumns = 
@@ -64,6 +69,14 @@ public class Imagenes {
 	
 	public int getId_imagen() {
 		return id_imagen;
+	}
+
+	public List<Noticias> getNoticias_imagen_relevante() {
+		return noticias_imagen_relevante;
+	}
+
+	public void setNoticias_imagen_relevante(List<Noticias> noticias_imagen_relevante) {
+		this.noticias_imagen_relevante = noticias_imagen_relevante;
 	}
 
 	public void setId_imagen(int id_imagen) {

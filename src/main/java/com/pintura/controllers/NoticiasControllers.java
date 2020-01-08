@@ -19,50 +19,50 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pintura.controllers.dto.GaleriaItem;
+import com.pintura.controllers.dto.NoticiaItem;
 import com.pintura.exceptions.ApiException;
-import com.pintura.services.GaleriaServices;
+import com.pintura.services.NoticiasServices;
 import com.pintura.utils.ModelApiResponse;
 
 /**
- * @author Juan Paggi. Controlador de galerias con get, post, put, y delete.
- *         Tenemos dos Get, uno para devolver una galeria seleccionada por su id
- *         y otro get para devolver todas las galerias.
+ * @author Juan Paggi. Controlador de noticias con get, post, put, y delete.
+ *         Tenemos dos Get, uno para devolver una noticia seleccionada por su id
+ *         y otro get para devolver todas las noticias.
  */
- 
+
 @RestController
 @CrossOrigin(origins = "*", methods = { RequestMethod.GET })
-@RequestMapping("/galerias")
-public class GaleriasControllers {
+@RequestMapping("/noticias")
+public class NoticiasControllers {
 
-	public static final Logger logger = LoggerFactory.getLogger(GaleriasControllers.class);
+	public static final Logger logger = LoggerFactory.getLogger(NoticiasControllers.class);
 
 	@Autowired
-	GaleriaServices galeriaServices;
+	NoticiasServices noticiasServices;
 
 	@GetMapping(path = "/{idGaleria}")
-	public @ResponseBody ResponseEntity<GaleriaItem> getGaleriaByID(@PathVariable("idGaleria") String idGaleria) {
+	public @ResponseBody ResponseEntity<NoticiaItem> getNoticiaByID(@PathVariable("idNoticia") String idNoticia) {
 		try {
-			return new ResponseEntity<GaleriaItem>(galeriaServices.getGaleria(Integer.parseInt(idGaleria)),
+			return new ResponseEntity<NoticiaItem>(noticiasServices.getNoticia(Integer.parseInt(idNoticia)),
 					HttpStatus.OK);
 		} catch (ApiException e) {
 			if (e.getCode() == 404) {
 				logger.error(e.getMessage(), e);
-				return new ResponseEntity<GaleriaItem>(HttpStatus.NOT_FOUND);
+				return new ResponseEntity<NoticiaItem>(HttpStatus.NOT_FOUND);
 			} else {
 				logger.error(e.getMessage(), e);
-				return new ResponseEntity<GaleriaItem>(HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<NoticiaItem>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		} catch (Exception e) {
 			logger.error("El servidor encontró una condición inesperada, no se pudo cumplir la solicitud", e);
-			return new ResponseEntity<GaleriaItem>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<NoticiaItem>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping(path = "")
-	public @ResponseBody ResponseEntity<List<GaleriaItem>> getGalerias() {
+	public @ResponseBody ResponseEntity<List<NoticiaItem>> getNoticias() {
 		try {
-			return new ResponseEntity<List<GaleriaItem>>(galeriaServices.getAllGalerias(), HttpStatus.OK);
+			return new ResponseEntity<List<NoticiaItem>>(noticiasServices.getAllNoticias(), HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("El servidor encontró una condición inesperada, no se pudo cumplir la solicitud", e);
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -70,12 +70,12 @@ public class GaleriasControllers {
 	}
 
 	@PostMapping(path = "")
-	public @ResponseBody ResponseEntity<ModelApiResponse> addUsuarios(@RequestBody GaleriaItem body) {
+	public @ResponseBody ResponseEntity<ModelApiResponse> addNoticia(@RequestBody NoticiaItem body) {
 		ModelApiResponse respuesta = new ModelApiResponse();
 		try {
-			galeriaServices.addGaleria(body);
+			noticiasServices.addNoticia(body);
 			respuesta.codigo("OK");
-			respuesta.descripcion("Galeria agregada correctamente");
+			respuesta.descripcion("Noticia agregada correctamente");
 			return new ResponseEntity<ModelApiResponse>(respuesta, HttpStatus.OK);
 		} catch (ApiException e) {
 			if (e.getCode() == 404) {
@@ -97,13 +97,13 @@ public class GaleriasControllers {
 		}
 	}
 
-	@DeleteMapping(path = "/{idGaleria}")
-	public @ResponseBody ResponseEntity<ModelApiResponse> removeUsuario(@PathVariable("idGaleria") String idGaleria) {
+	@DeleteMapping(path = "/{idNoticia}")
+	public @ResponseBody ResponseEntity<ModelApiResponse> removeUsuario(@PathVariable("idNoticia") String idNoticia) {
 		ModelApiResponse respuesta = new ModelApiResponse();
 		try {
-			galeriaServices.removeGaleria(Integer.parseInt(idGaleria));
+			noticiasServices.removeNoticia(Integer.parseInt(idNoticia));
 			respuesta.codigo("OK");
-			respuesta.descripcion("Galeria borrada correctamente");
+			respuesta.descripcion("Noticia borrada correctamente");
 			return new ResponseEntity<ModelApiResponse>(respuesta, HttpStatus.OK);
 		} catch (ApiException e) {
 			if (e.getCode() == 404) {
@@ -125,14 +125,14 @@ public class GaleriasControllers {
 		}
 	}
 
-	@PutMapping(path = "/{idGaleria}")
-	public @ResponseBody ResponseEntity<ModelApiResponse> editUsuario(@PathVariable("idGaleria") String idGaleria,
-			@RequestBody GaleriaItem body) {
+	@PutMapping(path = "/{idNoticia}")
+	public @ResponseBody ResponseEntity<ModelApiResponse> editUsuario(@PathVariable("idNoticia") String idNoticia,
+			@RequestBody NoticiaItem body) {
 		ModelApiResponse respuesta = new ModelApiResponse();
 		try {
-			galeriaServices.editGaleria(Integer.parseInt(idGaleria), body);
+			noticiasServices.editNoticia(Integer.parseInt(idNoticia), body);
 			respuesta.codigo("OK");
-			respuesta.descripcion("Galeria editada correctamente");
+			respuesta.descripcion("Noticia editada correctamente");
 			return new ResponseEntity<ModelApiResponse>(respuesta, HttpStatus.OK);
 		} catch (ApiException e) {
 			if (e.getCode() == 404) {
