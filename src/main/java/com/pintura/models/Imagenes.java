@@ -43,7 +43,7 @@ public class Imagenes {
 	@JoinColumn(name="id_usuario_subido", referencedColumnName = "id_usuario")
 	private Usuarios id_usuario_subido;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval=true)
 	@JoinColumn(name="imagen_relevante", referencedColumnName = "id_imagen", nullable = false, insertable = false, updatable = false)
 	private List<Noticias> noticias_imagen_relevante;
 	
