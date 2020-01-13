@@ -3,8 +3,6 @@ package com.pintura.controllers.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.pintura.models.Tags;
-
 public class NoticiaItem {
 	
 	public int id_noticia;
@@ -12,7 +10,7 @@ public class NoticiaItem {
 	public String titulo;
 	public String cuerpo;
 	
-	public List<Tags> tags;
+	public List<Integer> tags;
 	
 	public ArrayList<String> imagenes;
 	public ArrayList<byte[]> archivoImagen;

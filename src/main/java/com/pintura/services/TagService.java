@@ -30,7 +30,7 @@ public class TagService {
 			TagItem tagItem = new TagItem();
 			if(tag.isPresent()) {				
 				tagItem.id_tag = tag.get().getId_tag();
-				tagItem.tag = tag.get().getTag();
+				tagItem.etiqueta = tag.get().getTag();
 				return tagItem;
 			}else {
 				throw new ApiException(404, "No existe el tag");
@@ -51,7 +51,7 @@ public class TagService {
 			for(Tags tag: tags) {
 				TagItem item = new TagItem();
 				item.id_tag = tag.getId_tag();
-				item.tag = tag.getTag();
+				item.etiqueta = tag.getTag();
 				out.add(item);
 			}
 			return out;
@@ -67,7 +67,7 @@ public class TagService {
 		
 		try {			
 			Tags tag = new Tags();
-			tag.setTag(tagIn.tag);
+			tag.setTag(tagIn.etiqueta);
 			tag = tagRepository.save(tag);
 			return tag.getId_tag();
 		} catch (ApiException e) {
@@ -101,7 +101,7 @@ public class TagService {
 			Optional<Tags> tag = tagRepository.findById(id);
 			if(tag.isPresent()) {
 				Tags tagObj = tag.get();
-				tagObj.setTag(tagIn.tag);
+				tagObj.setTag(tagIn.etiqueta);
 				tagRepository.save(tagObj);
 			}else {
 				throw new ApiException(404, "No existe el tag");

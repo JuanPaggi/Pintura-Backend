@@ -15,8 +15,10 @@ import com.pintura.controllers.dto.NoticiaItem;
 import com.pintura.exceptions.ApiException;
 import com.pintura.models.Imagenes;
 import com.pintura.models.Noticias;
+import com.pintura.models.Tags;
 import com.pintura.models.Usuarios;
 import com.pintura.repository.NoticiasRepository;
+import com.pintura.repository.TagRepository;
 import com.pintura.repository.UsuariosRepository;
 
 /**
@@ -36,6 +38,9 @@ public class NoticiasServices {
 	@Autowired
 	FileService fileService;
 
+	@Autowired
+	TagRepository tagRepository;
+	
 	public String formatSeo(String text) {
 		return StringUtils.strip(text.replaceAll("([^a-zA-Z0-9]+)", "-"), "-");
 	}
@@ -49,7 +54,12 @@ public class NoticiasServices {
 				noticiaItem.id_noticia = noticia.get().getId_noticia();
 				noticiaItem.titulo = noticia.get().getTitulo();
 				noticiaItem.cuerpo = noticia.get().getCuerpo();
-				noticiaItem.tags = noticia.get().getTags();
+				ArrayList<Integer> tag_id = new ArrayList<>();
+				List<Tags> tag_noticia = noticia.get().getTags();
+				for (Tags tag : tag_noticia) {
+					tag_id.add(tag.getId_tag());
+				}
+				noticiaItem.tags = tag_id;
 				noticiaItem.id_usuario = noticia.get().getId_usuario().getId_usuario();
 				
 				ArrayList<String> imagenes = new ArrayList<String>();
@@ -88,7 +98,12 @@ public class NoticiasServices {
 			item.id_noticia = noticia.getId_noticia();
 			item.titulo = noticia.getTitulo();
 			item.cuerpo = noticia.getCuerpo();
-			item.tags = noticia.getTags();
+			ArrayList<Integer> tag_id = new ArrayList<>();
+			List<Tags> tag_noticia = noticia.getTags();
+			for (Tags tag : tag_noticia) {
+				tag_id.add(tag.getId_tag());
+			}
+			item.tags = tag_id;
 			item.id_usuario = noticia.getId_usuario().getId_usuario();
 
 			ArrayList<String> imagenes = new ArrayList<String>();
@@ -122,7 +137,13 @@ public class NoticiasServices {
 			noticia.setTitulo(noticiaIn.titulo);
 			noticia.setCuerpo(noticiaIn.cuerpo);
 			noticia.setId_usuario(usuario.get());
-
+			
+			List<Tags> lista_tag = tagRepository.findAllById(noticiaIn.tags);
+			if (lista_tag.size() != noticiaIn.tags.size()) {
+				throw new ApiException(404, "Error al cargar los tags");
+			}
+			noticia.setTags(lista_tag);
+			
 			Set<Imagenes> imagenes = new HashSet<Imagenes>();
 			if(noticiaIn.archivoImagen != null) {				
 				for (byte[] imagen : noticiaIn.archivoImagen) {

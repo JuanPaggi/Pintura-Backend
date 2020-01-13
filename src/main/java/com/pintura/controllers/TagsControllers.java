@@ -31,7 +31,7 @@ import com.pintura.utils.ModelApiResponse;
  */
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET })
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE })
 @RequestMapping("/tags")
 public class TagsControllers {
 

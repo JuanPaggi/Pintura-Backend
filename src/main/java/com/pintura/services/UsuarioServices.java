@@ -29,7 +29,7 @@ public class UsuarioServices {
 			Optional<Usuarios> usuario = usuariosRepository.findById(id);
 			UsuarioItem usuarioItem = new UsuarioItem();
 			if (usuario.isPresent()) {
-				usuarioItem.id_usuario = usuario.get().getId_usuario();
+				usuarioItem.id_usuario = usuario.get().getId_usuario(); 
 				usuarioItem.usuario = usuario.get().getUsuario();
 				usuarioItem.clave = usuario.get().getClave();
 				return usuarioItem;
